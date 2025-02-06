@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Form, Request
+from fastapi import FastAPI, Form, Request, File, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -64,3 +64,35 @@ async def get_images(folder: str):
     ]
 
     return JSONResponse(content={"images": images})
+
+
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...), category: str = Form(...)):
+    # Validate category selection
+    if not category:
+        return JSONResponse(
+            content={"error": "Please select a category"},
+            status_code=400
+        )
+    
+    # Check if category directory exists
+    category_path = os.path.join(UPLOAD_FOLDER, category)
+    if not os.path.isdir(category_path):
+        return JSONResponse(
+            content={"error": "Category does not exist"},
+            status_code=400
+        )
+    
+    # Save the file
+    file_path = os.path.join(category_path, file.filename)
+    try:
+        contents = await file.read()
+        with open(file_path, "wb") as f:
+            f.write(contents)
+    except Exception as e:
+        return JSONResponse(
+            content={"error": f"Failed to save file: {str(e)}"},
+            status_code=500
+        )
+    
+    return RedirectResponse(url="/", status_code=303)

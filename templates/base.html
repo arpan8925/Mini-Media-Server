@@ -58,35 +58,31 @@
     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content glass">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadModalLabel">Upload Media</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/upload" method="post" enctype="multipart/form-data">
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadModalLabel">Upload Media</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
                         <div class="mb-3">
                             <label for="fileUpload" class="form-label">Choose File</label>
-                            <input type="file" class="form-control" id="fileUpload" required>
+                            <input type="file" class="form-control" id="fileUpload" name="file" required>
                         </div>
                         <div class="mb-3">
                             <label for="uploadCategory" class="form-label">Category</label>
-                            <select class="form-select" id="uploadCategory">
-                                <option selected>Choose category...</option>
-                                <option value="1">Images</option>
-                                <option value="2">Videos</option>
-                                <option value="3">Documents</option>
+                            <select class="form-select" id="uploadCategory" name="category">
+                                <option value="" selected>Choose category...</option>
+                                {% for folder in folders %}
+                                <option value="{{ folder }}">{{ folder }}</option>
+                                {% endfor %}
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="uploadTags" class="form-label">Tags</label>
-                            <input type="text" class="form-control" id="uploadTags" placeholder="Enter tags separated by commas">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Upload</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

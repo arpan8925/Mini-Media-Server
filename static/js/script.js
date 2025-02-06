@@ -1,32 +1,9 @@
-// Get the elements with class="column"
-var elements = document.getElementsByClassName("column");
-
-// Declare a loop variable
-var i;
-
-
-
-// Store the original grid layout when the page loads
 window.onload = function () {
-    const container = document.querySelector(".row");
-
-    // Store the original grid layout
-    window.originalGridHTML = container.innerHTML;
-
-    // Store original inline styles for each column
-    window.originalColumnStyles = [];
-    document.querySelectorAll(".column").forEach((item, index) => {
-        window.originalColumnStyles[index] = item.getAttribute("style") || ""; // Capture existing styles
-    });
-
-    // Store original styles of the row
-    window.originalRowStyle = container.getAttribute("style") || "";
-
-    // Store the original images and their alt text for future use
-    window.imageData = [];
-    document.querySelectorAll(".column img").forEach(img => {
-        window.imageData.push({ src: img.src, alt: img.alt });
-    });
+    // Initialize window.imageData with all images when the page loads
+    window.imageData = Array.from(document.querySelectorAll(".column img")).map(img => ({
+        src: img.src,
+        alt: img.alt
+    }));
 };
 
 function loadImages(category) {
@@ -130,23 +107,40 @@ function copyURL(element) {
 
 function gridView() {
     const container = document.querySelector(".row");
+    container.innerHTML = ""; // Clear existing content
 
-    // Restore the original grid HTML
-    if (window.originalGridHTML) {
-        container.innerHTML = window.originalGridHTML;
-    }
+    // Render images from window.imageData in grid view
+    window.imageData.forEach(img => {
+        const column = document.createElement('div');
+        column.className = 'column';
+        column.onclick = () => copyURL(column);
 
-    // Restore the original row styles
-    if (window.originalRowStyle) {
-        container.setAttribute("style", window.originalRowStyle);
-    }
+        const overlayDiv = document.createElement('div');
+        overlayDiv.className = 'shine-overlay';
 
-    // Restore original styles for each column and set width to 10%
-    document.querySelectorAll(".column").forEach((item, index) => {
-        if (window.originalColumnStyles[index]) {
-            item.setAttribute("style", window.originalColumnStyles[index]);
-        }
-        item.style.width = "10%"; // Force 10% width
+        const imageElement = new Image();
+        imageElement.src = img.src;
+        imageElement.alt = img.alt;
+
+        const shineDiv = document.createElement('div');
+        shineDiv.className = 'shine';
+
+        const tooltip = document.createElement('span');
+        tooltip.className = 'tooltip';
+        tooltip.textContent = "Click to Copy URL";
+
+        overlayDiv.appendChild(imageElement);
+        overlayDiv.appendChild(shineDiv);
+        column.appendChild(overlayDiv);
+        column.appendChild(tooltip);
+        container.appendChild(column);
+    });
+
+    // Apply grid-specific styles
+    container.style.display = 'flex';
+    container.style.flexWrap = 'wrap';
+    container.querySelectorAll('.column').forEach(column => {
+        column.style.width = '10%'; // Adjust based on your grid requirements
     });
 }
 

@@ -5,6 +5,7 @@
 }
 
 body {
+    background-repeat: no-repeat;
     margin: 15px 15px 0px 15px;
     color: #ffffff;
     background-color: #101724;
