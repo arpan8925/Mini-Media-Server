@@ -4,6 +4,8 @@ var elements = document.getElementsByClassName("column");
 // Declare a loop variable
 var i;
 
+
+
 // Store the original grid layout when the page loads
 window.onload = function () {
     const container = document.querySelector(".row");
@@ -39,6 +41,10 @@ function loadImages(category) {
                 return;
             }
 
+            // Update window.imageData with the current category's images
+            window.imageData = data.images;
+
+            // Render images in grid view
             data.images.forEach(img => {
                 let column = document.createElement('div');
                 column.classList.add('column');
@@ -71,10 +77,14 @@ function showAllImages() {
     let container = document.querySelector('.row'); 
     container.innerHTML = "";  // Clear previous images
 
-    window.imageData.forEach(img => { // Use window.imageData instead of allImages
+    // Update window.imageData with all images
+    window.imageData = allImages;
+
+    // Render images in grid view
+    allImages.forEach(img => {
         let column = document.createElement('div');
         column.classList.add('column');
-        column.onclick = function () { copyURL(this); }; // Pass 'this' element
+        column.onclick = function () { copyURL(img.src); };
 
         let overlayDiv = document.createElement('div');
         overlayDiv.classList.add('shine-overlay');
@@ -144,7 +154,6 @@ function gridView() {
 
 
 
-// List View
 function listView() {
     const container = document.querySelector(".row");
 
@@ -165,7 +174,7 @@ function listView() {
                 <tbody>
     `;
 
-    // Use stored image data instead of querying the DOM
+    // Use the updated window.imageData array
     window.imageData.forEach(data => {
         tableHTML += `
             <tr onclick="copyURL(this)">
