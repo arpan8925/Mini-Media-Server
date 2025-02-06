@@ -78,13 +78,13 @@ function showAllImages() {
     container.innerHTML = "";  // Clear previous images
 
     // Update window.imageData with all images
-    window.imageData = allImages;
+    window.imageData = allImages; // Use the globally defined allImages
 
     // Render images in grid view
     allImages.forEach(img => {
         let column = document.createElement('div');
         column.classList.add('column');
-        column.onclick = function () { copyURL(img.src); };
+        column.onclick = function () { copyURL(this); }; // Pass 'this' instead of img.src
 
         let overlayDiv = document.createElement('div');
         overlayDiv.classList.add('shine-overlay');
@@ -238,3 +238,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+

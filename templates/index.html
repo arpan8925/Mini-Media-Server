@@ -16,4 +16,8 @@
     {% endfor %}
   </div>
 </div>
+<script>
+  // Convert server-side all_images to JavaScript variable
+  var allImages = {{ all_images | tojson }};
+</script>
 {% endblock %} 
