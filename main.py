@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Form, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
@@ -49,3 +49,18 @@ async def create_category(category_name: str = Form(...)):
     if not os.path.exists(category_path):
         os.makedirs(category_path, exist_ok=True)
     return RedirectResponse(url="/", status_code=303)
+
+@app.get("/get_images/{folder}")
+async def get_images(folder: str):
+    """Retrieve images for a specific category"""
+    category_path = os.path.join(UPLOAD_FOLDER, folder)
+
+    if not os.path.exists(category_path) or not os.path.isdir(category_path):
+        return JSONResponse(content={"error": "Category not found"}, status_code=404)
+
+    images = [
+        {"src": f"/{storage_folder}/{folder}/{img}", "alt": img}
+        for img in os.listdir(category_path) if img.lower().endswith(('png', 'jpg', 'jpeg', 'gif', 'webp'))
+    ]
+
+    return JSONResponse(content={"images": images})

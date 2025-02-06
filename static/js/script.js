@@ -27,6 +27,76 @@ window.onload = function () {
     });
 };
 
+function loadImages(category) {
+    fetch(`/get_images/${category}`)
+        .then(response => response.json())
+        .then(data => {
+            let container = document.querySelector('.row'); 
+            container.innerHTML = "";  // Clear previous images
+
+            if (data.error) {
+                container.innerHTML = `<p>${data.error}</p>`;
+                return;
+            }
+
+            data.images.forEach(img => {
+                let column = document.createElement('div');
+                column.classList.add('column');
+                column.onclick = function () { copyURL(this); };
+
+                let overlayDiv = document.createElement('div');
+                overlayDiv.classList.add('shine-overlay');
+
+                let imageElement = document.createElement('img');
+                imageElement.src = img.src;
+                imageElement.alt = img.alt;
+
+                let shineDiv = document.createElement('div');
+                shineDiv.classList.add('shine');
+
+                let tooltip = document.createElement('span');
+                tooltip.classList.add('tooltip');
+                tooltip.textContent = "Click to Copy URL";
+
+                overlayDiv.appendChild(imageElement);
+                overlayDiv.appendChild(shineDiv);
+                column.appendChild(overlayDiv);
+                column.appendChild(tooltip);
+                container.appendChild(column);
+            });
+        });
+}
+
+function showAllImages() {
+    let container = document.querySelector('.row'); 
+    container.innerHTML = "";  // Clear previous images
+
+    window.imageData.forEach(img => { // Use window.imageData instead of allImages
+        let column = document.createElement('div');
+        column.classList.add('column');
+        column.onclick = function () { copyURL(this); }; // Pass 'this' element
+
+        let overlayDiv = document.createElement('div');
+        overlayDiv.classList.add('shine-overlay');
+
+        let imageElement = document.createElement('img');
+        imageElement.src = img.src;
+        imageElement.alt = img.alt;
+
+        let shineDiv = document.createElement('div');
+        shineDiv.classList.add('shine');
+
+        let tooltip = document.createElement('span');
+        tooltip.classList.add('tooltip');
+        tooltip.textContent = "Click to Copy URL";
+
+        overlayDiv.appendChild(imageElement);
+        overlayDiv.appendChild(shineDiv);
+        column.appendChild(overlayDiv);
+        column.appendChild(tooltip);
+        container.appendChild(column);
+    });
+}
 
 function copyURL(element) {
     let imgSrc = element.querySelector("img").src; // Get the image source
@@ -142,8 +212,6 @@ function listView() {
         });
     });
 }
-
-
 
 
 document.addEventListener("DOMContentLoaded", function () {
