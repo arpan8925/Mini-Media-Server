@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to UniverseRP{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<div class="main-content p-4">
+  <div class="row">
+    {% for img in all_images %}
+    <div class="column" onclick="copyURL(this)">
+      <div class="shine-overlay">
+        <img src="{{ img.src }}" alt="{{ img.alt }}" />
+        <div class="shine"></div>
+      </div>
+      <span class="tooltip"></span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %} 
