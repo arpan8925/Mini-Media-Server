@@ -2,7 +2,7 @@
 
 This repository contains all the necessary files and database needed to set up a fully functional Media Server website built with Python FastAPI.
 
-![LMS Website Screenshot](images/Screenshot1.png)
+![LMS Website Screenshot](Screenshot_88.png)
 
 ## Project Overview
 
