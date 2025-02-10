@@ -12,7 +12,7 @@ The project is a Media Server built using Python, FastAPI, and Jinja2Templating.
 
 Below is an image representation of the project structure:
 
-![Project Structure](images/Screenshot2.png)
+![Project Structure](Screenshot_87.png)
 
 - **media_storage/**: Contains the media files that are hosted on the server.
   - **Foods/**: Directory for food-related media files.
