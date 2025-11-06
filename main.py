@@ -14,6 +14,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 app.mount(f"/{storage_folder}", StaticFiles(directory=storage_folder), name="media")
+app.mount("/logo", StaticFiles(directory=os.path.join(BASE_DIR, "logo")), name="logo")
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 
