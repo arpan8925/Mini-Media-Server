@@ -204,3 +204,61 @@ a.navbar-brand.text-white {
     border-radius: 20px;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+/* ------------------------------
+   Login Page specific styling
+-------------------------------*/
+.login-page {
+    margin: 0;                 /* remove page margins for full-bleed look */
+    min-height: 100vh;
+    color: #fff;
+    background-color: #0e1420;
+    background-image:
+        radial-gradient(60rem 30rem at 50% 20%, rgba(183, 41, 54, 0.65), rgba(183, 41, 54, 0) 60%),
+        radial-gradient(40rem 25rem at 85% 70%, rgba(20, 28, 44, 0.9), rgba(20, 28, 44, 0) 60%),
+        radial-gradient(35rem 20rem at 15% 80%, rgba(20, 28, 44, 0.8), rgba(20, 28, 44, 0) 60%);
+}
+
+.login-card {
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    background: rgba(17, 25, 40, 0.65); /* a bit more opaque for readability */
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.login-card .form-label {
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+}
+
+.login-card .form-control {
+    background-color: rgba(17, 25, 40, 0.9);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.login-card .form-control::placeholder {
+    color: rgba(255,255,255,0.55);
+}
+
+.login-card .form-control:focus {
+    background-color: rgba(17, 25, 40, 0.95);
+    border-color: rgba(99, 179, 237, 0.6);
+    box-shadow: 0 0 0 0.2rem rgba(99, 179, 237, 0.15);
+}
+
+.btn-login.btn-primary {
+    background: linear-gradient(180deg, #3d8bfd 0%, #1e6fff 100%);
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 6px 14px rgba(30, 111, 255, 0.35);
+}
+.btn-login.btn-primary:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 8px 18px rgba(30, 111, 255, 0.45);
+}
+
+.login-help {
+    color: rgba(255,255,255,0.6) !important;
+}
