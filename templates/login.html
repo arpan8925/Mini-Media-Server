@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card glass p-4">
+        <h3 class="text-white mb-4">Sign in</h3>
+        {% if error %}
+          <div class="alert alert-danger" role="alert">{{ error }}</div>
+        {% endif %}
+        <form action="/login" method="post">
+          <input type="hidden" name="next" value="{{ next or '/' }}" />
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required />
+          </div>
+          <div class="d-grid">
+            <button class="btn btn-primary" type="submit">Login</button>
+          </div>
+        </form>
+        <p class="text-muted small mt-3 mb-0">
+          Use the credentials from environment variables AUTH_USERNAME and AUTH_PASSWORD.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
